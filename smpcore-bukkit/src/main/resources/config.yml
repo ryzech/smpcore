@@ -1,0 +1,15 @@
+Join:
+  JoinMessages: false
+  QuitMessages: false
+DamageIndicators:
+  # Only enable if you have protocollib and holographic displays installed. Otherwise it will fail
+  Enabled: false
+  Hearts: false
+Stuck:
+  Location:
+    world: world
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    yaw: 0
+    pitch: 0

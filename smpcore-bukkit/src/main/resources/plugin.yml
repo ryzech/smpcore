@@ -1,0 +1,22 @@
+name: SmpCore
+main: com.ryzechdev.smpcore.SmpCorePlugin
+version: ${projectVersion}
+api-version: 1.18
+permissions:
+depend:
+  - Vault
+  - ProtocolLib
+softdepend:
+  - PlaceholderAPI
+  - HolographicDisplays
+commands:
+  yell:
+    description: Server Messages
+  tower:
+    description: Contact Spawn
+  stuck:
+    description: Free yourself if you're stuck on the hub server.
+  deposit:
+    description: Deposit diamonds into your economy account.
+  withdraw:
+    description: Withdraw diamonds from your economy account.
