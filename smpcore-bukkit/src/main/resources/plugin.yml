@@ -12,14 +12,11 @@ softdepend:
 commands:
   yell:
     description: /yell <time in seconds> <message>
-    usage: /yell <time in seconds> <message>
   tower:
     description: Warp's you back to the hub server.
   stuck:
     description: TP's you back if you're stuck.
   deposit:
     description: /deposit (withdraws all) or /deposit <amount>
-    usage: /deposit (withdraws all) or /deposit <amount>
   withdraw:
     description: /withdraw <amount>
-    usage: /withdraw <amount>
