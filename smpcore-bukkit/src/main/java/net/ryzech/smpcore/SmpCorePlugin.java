@@ -161,14 +161,9 @@ public class SmpCorePlugin extends JavaPlugin implements Listener {
 
         // Plugin enabled log message
         assert ENABLETOPBAR != null;
-        log.info(ChatColor.translateAlternateColorCodes('&', ENABLETOPBAR));
         log.info(ChatColor.DARK_AQUA + "Enabling SmpCore...");
         log.info(ChatColor.GREEN + "Enabled SmpCore!");
-        log.info(ChatColor.DARK_AQUA + "Plugin Name" + ChatColor.GRAY + " > " + ChatColor.DARK_AQUA + pdf.getFullName());
         log.info(ChatColor.DARK_AQUA + "Plugin Author" + ChatColor.GRAY + " > " + ChatColor.DARK_AQUA + pdf.getAuthors());
-        log.info(ChatColor.DARK_AQUA + "Version" + ChatColor.GRAY + " > " + ChatColor.DARK_AQUA + pdf.getVersion());
-        log.info(ChatColor.GREEN + "Expansions Loaded" + ChatColor.GRAY + " > " + ChatColor.GREEN + "2 (AFK, Spawn)");
-        log.info(ChatColor.DARK_AQUA + "Repo Link" + ChatColor.GRAY + " > " + ChatColor.DARK_AQUA + "https://github.com/ryzech/Joinmessages");
     }
 
     public void onDisable() {

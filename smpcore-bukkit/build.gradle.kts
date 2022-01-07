@@ -2,6 +2,7 @@ plugins {
     `java-library`
     publishing
 }
+applyPlatformAndCoreConfiguration()
 
 repositories {
     mavenLocal()
@@ -32,7 +33,15 @@ dependencies {
     compileOnly("com.comphenix.protocol:ProtocolLib:4.7.0")
 }
 
+tasks.named<Copy>("processResources") {
+    val internalVersion = project.ext["internalVersion"]
+    inputs.property("internalVersion", internalVersion)
+    filesMatching("plugin.yml") {
+        expand("internalVersion" to internalVersion)
+    }
+}
+
 group = "com.ryzech.smpcore"
-version = findProperty("version")!!
+version = project.ext["internalVersion"]!!
 description = "SmpCore"
 java.sourceCompatibility = JavaVersion.VERSION_17

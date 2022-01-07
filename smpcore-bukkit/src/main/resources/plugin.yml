@@ -1,14 +1,14 @@
 name: SmpCore
 main: net.ryzech.smpcore.SmpCorePlugin
-version: ${projectVersion}
+version: "${internalVersion}"
 api-version: 1.18
-permissions:
 depend:
   - Vault
   - ProtocolLib
 softdepend:
   - PlaceholderAPI
   - HolographicDisplays
+  - Essentials
 commands:
   yell:
     description: /yell <time in seconds> <message>
