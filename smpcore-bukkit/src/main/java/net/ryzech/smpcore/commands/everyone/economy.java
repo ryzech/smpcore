@@ -48,8 +48,10 @@ public class economy implements CommandExecutor {
                     diamonds = Integer.valueOf(args[0]);
                 }
                 try {
-                    if(diamonds <= 0) {
+                    if(diamonds == 0) {
                         player.sendMessage(Component.text("Sorry, but you don't have enough diamonds in your inventory to deposit.", NamedTextColor.RED));
+                    } else if (diamonds < 0) {
+                        player.sendMessage(Component.text("Sorry, but you can't deposit a negative amount.", NamedTextColor.RED));
                     } else if (player.getInventory().containsAtLeast(new ItemStack(Material.DIAMOND), diamonds)) {
                         Economy.add(uuid, BigDecimal.valueOf(diamonds));
                         player.getInventory().removeItem(new ItemStack(Material.DIAMOND, diamonds));
