@@ -11,12 +11,15 @@ softdepend:
   - HolographicDisplays
 commands:
   yell:
-    description: Server Messages
+    description: /yell <time in seconds> <message>
+    usage: /yell <time in seconds> <message>
   tower:
-    description: Contact Spawn
+    description: Warp's you back to the hub server.
   stuck:
-    description: Free yourself if you're stuck on the hub server.
+    description: TP's you back if you're stuck.
   deposit:
-    description: Deposit diamonds into your economy account.
+    description: /deposit (withdraws all) or /deposit <amount>
+    usage: /deposit (withdraws all) or /deposit <amount>
   withdraw:
-    description: Withdraw diamonds from your economy account.
+    description: /withdraw <amount>
+    usage: /withdraw <amount>

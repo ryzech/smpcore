@@ -33,6 +33,6 @@ dependencies {
 }
 
 group = "com.ryzech.smpcore"
-version = findProperty("version")
+version = findProperty("version")!!
 description = "SmpCore"
 java.sourceCompatibility = JavaVersion.VERSION_17
