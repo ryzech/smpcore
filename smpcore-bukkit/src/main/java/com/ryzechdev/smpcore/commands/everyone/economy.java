@@ -5,6 +5,8 @@ import com.earth2me.essentials.api.NoLoanPermittedException;
 import com.earth2me.essentials.api.UserDoesNotExistException;
 import com.ryzechdev.smpcore.SmpCorePlugin;
 import net.ess3.api.MaxMoneyException;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -38,13 +40,17 @@ public class economy implements CommandExecutor {
                 Player player = (Player) sender;
                 UUID uuid = player.getUniqueId();
                 Integer diamonds = Integer.valueOf(args[0]);
-                if (args.length == 0) {
+                if (args.length < 2) {
                     diamonds = 1;
                 }
                 try {
                     Economy.add(uuid, BigDecimal.valueOf(diamonds));
                     player.getInventory().removeItem(new ItemStack(Material.DIAMOND, diamonds));
-                    player.sendMessage(diamonds + " diamond was withdrawn from your inventory. Your balance is now " + Economy.getMoneyExact(uuid));
+                    player.sendMessage(Component.text()
+                            .append(Component.text("You deposited ", NamedTextColor.GOLD))
+                            .append(Component.text( diamonds + "♢", NamedTextColor.AQUA))
+                            .append(Component.text(" your balance is now ", NamedTextColor.GOLD))
+                            .append(Component.text( Economy.getMoneyExact(uuid)+ "♢.", NamedTextColor.AQUA)));
                 } catch (UserDoesNotExistException e) {
                     e.printStackTrace();
                 } catch (NoLoanPermittedException e) {
@@ -61,11 +67,14 @@ public class economy implements CommandExecutor {
                     BigDecimal balance = Economy.getMoneyExact(uuid);
                     Integer actualBalance = balance.intValueExact();
                     if (Integer.parseInt(args[0]) > actualBalance) {
-                        player.sendMessage("Sorry, but you don't have enough money to withdraw this amount.");
+                        player.sendMessage(Component.text("Sorry, but you don't have enough diamonds in your account to withdraw.", NamedTextColor.RED));
                     } else {
                         Economy.subtract(uuid, BigDecimal.valueOf(Long.parseLong(args[0])));
                         player.getInventory().addItem(new ItemStack(Material.DIAMOND, Integer.parseInt(args[0])));
-                        player.sendMessage();
+                        player.sendMessage(Component.text()
+                                .append(Component.text("You withdrew ", NamedTextColor.GOLD)
+                                        .append(Component.text(args[0] + "♢", NamedTextColor.AQUA))
+                                        .append(Component.text(" from your account."))));
                     }
                 } catch (NoLoanPermittedException e) {
                     e.printStackTrace();
