@@ -1,5 +1,5 @@
 name: SmpCore
-main: com.ryzechdev.smpcore.SmpCorePlugin
+main: net.ryzech.smpcore.SmpCorePlugin
 version: ${projectVersion}
 api-version: 1.18
 permissions:
