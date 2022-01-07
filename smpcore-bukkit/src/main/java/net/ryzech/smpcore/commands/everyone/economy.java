@@ -81,6 +81,8 @@ public class economy implements CommandExecutor {
                     Integer actualBalance = balance.intValueExact();
                     if(args.length == 0) {
                         player.sendMessage(Component.text("Please select an amount, /withdraw <amount>.", NamedTextColor.GOLD));
+                    } else if (Integer.parseInt(args[0]) < 0) {
+                        player.sendMessage(Component.text("Sorry, but you can't withdraw a negative amount.", NamedTextColor.RED));
                     } else if (Integer.parseInt(args[0]) > actualBalance) {
                         player.sendMessage(Component.text("Sorry, but you don't have enough diamonds in your account to withdraw.", NamedTextColor.RED));
                     } else {
