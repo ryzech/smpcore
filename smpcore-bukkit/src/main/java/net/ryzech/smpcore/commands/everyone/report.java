@@ -60,7 +60,10 @@ public class report implements CommandExecutor {
                 eb.addField("Reported Player", args[0], true);
                 eb.addField("Sender", player.getName(), true);
                 eb.addField("Message Content", msgContent, true);
-                eb.addField("Report Coords", player.getLocation().getX() + ", " + player.getLocation().getY() + ", " + player.getLocation().getZ(), true);
+                eb.addField("Report Coords", Math.round(player.getLocation().getX())
+                        + ", " + Math.round(player.getLocation().getY())
+                        + ", " + Math.round(player.getLocation().getZ()),
+                        true);
                 modLog.sendMessageEmbeds(eb.build()).queue();
                 player.sendMessage(Component.text("You reported " + reported.getName() + " for: " + msgContent, NamedTextColor.DARK_AQUA));
             }
