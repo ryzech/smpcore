@@ -1,5 +1,6 @@
 package net.ryzech.smpcore.commands.admin;
 
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.ryzech.smpcore.SmpCorePlugin;
 import net.ryzech.smpcore.util.FileUtils;
 import net.ryzech.smpcore.util.SmpCoreApi;
@@ -51,17 +52,13 @@ public class toweradmin implements CommandExecutor {
                 if ("reload".equals(args[0]) && args.length >= 1) {
                     FileUtils fileUtils;
                     fileUtils = new FileUtils(plugin);
-                    if (!(sender instanceof Player)) {
-                        fileUtils.reloadMain();
-                        fileUtils.reloadLang();
-                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a[&3SMPCORE&a] &aSuccesfully reloaded the config!"));
-                    } else if (sender.hasPermission("smpcore.admin")) {
+                    if (sender.hasPermission("smpcore.admin")) {
                         fileUtils.reloadMain();
                         fileUtils.reloadLang();
                         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a[&3SMPCORE&a] &aSuccesfully reloaded the config!"));
                         Bukkit.getLogger().info(ChatColor.translateAlternateColorCodes('&', "&a[&3SMPCORE&a] &aSuccesfully reloaded the config!"));
                     } else {
-                        return false;
+                        sender.sendMessage(MiniMessage.get().deserialize("<red>Sorry but you don't have permission to run this command.</red>"));
                     }
                 }
             }
