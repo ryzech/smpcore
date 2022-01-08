@@ -6,6 +6,7 @@ import net.ryzech.smpcore.commands.SmpCoreCommandExecutor;
 import net.ryzech.smpcore.commands.admin.toweradmin;
 import net.ryzech.smpcore.commands.admin.yell;
 import net.ryzech.smpcore.commands.everyone.economy;
+import net.ryzech.smpcore.commands.everyone.report;
 import net.ryzech.smpcore.commands.everyone.stuck;
 import net.ryzech.smpcore.compatibilities.CompatibilitiesManager;
 import net.ryzech.smpcore.events.DamageEvent;
@@ -86,6 +87,7 @@ public class SmpCorePlugin extends JavaPlugin implements Listener {
         instance = this;
         PluginDescriptionFile pdf = this.getDescription(); // gets the plugin.yml file
         log = this.getLogger();
+        new report(this);
 
         // commandExecutor
         SmpCoreCommandExecutor commandExecutor = new SmpCoreCommandExecutor(this);

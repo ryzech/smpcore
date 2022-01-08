@@ -20,3 +20,5 @@ commands:
     description: /deposit (withdraws all) or /deposit <amount>
   withdraw:
     description: /withdraw <amount>
+  report:
+    description: report a player.

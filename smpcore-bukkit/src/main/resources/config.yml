@@ -13,3 +13,6 @@ Stuck:
     z: 0.0
     yaw: 0
     pitch: 0
+Bot:
+  Token: ""
+  LogChannel: ""

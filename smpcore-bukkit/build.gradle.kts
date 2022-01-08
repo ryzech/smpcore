@@ -1,6 +1,7 @@
 plugins {
     `java-library`
     publishing
+    id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 applyPlatformAndCoreConfiguration()
 
@@ -23,6 +24,7 @@ dependencies {
     implementation("com.github.rockswang:java-curl:1.2.2.190107")
     implementation("org.yaml:snakeyaml:1.30")
     implementation("org.bstats:bstats-bukkit:2.2.1")
+    implementation("com.github.DV8FromTheWorld:JDA:v5.0.0-alpha.3")
     compileOnly("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
     compileOnly("com.gmail.filoghost.holographicdisplays:holographicdisplays-api:2.4.9")
     compileOnly("me.clip:placeholderapi:2.11.1")
@@ -31,6 +33,7 @@ dependencies {
     compileOnly("net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT")
     compileOnly("net.kyori:adventure-platform-bukkit:4.0.1")
     compileOnly("com.comphenix.protocol:ProtocolLib:4.7.0")
+    shadow("com.github.DV8FromTheWorld:JDA:v5.0.0-alpha.3")
 }
 
 tasks.named<Copy>("processResources") {
@@ -41,7 +44,16 @@ tasks.named<Copy>("processResources") {
     }
 }
 
-group = "com.ryzech.smpcore"
-version = project.ext["internalVersion"]!!
-description = "SmpCore"
-java.sourceCompatibility = JavaVersion.VERSION_17
+
+    group = "com.ryzech.smpcore"
+    version = project.ext["internalVersion"]!!
+    description = "SmpCore"
+    java.sourceCompatibility = JavaVersion.VERSION_17
+
+tasks {
+    shadowJar {
+        archiveBaseName.set("smpcore-bukkit-" + version)
+        archiveClassifier.set("")
+        archiveVersion.set("")
+    }
+}
