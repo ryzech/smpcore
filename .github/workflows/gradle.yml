@@ -15,7 +15,7 @@ jobs:
         distribution: 'temurin'
         java-package: 'jdk'
     - name: Make gradle executable
-      run: chmod +x gradlew
+      run: chmod +x shadowJar
     - name: Build artifacts
       run: ./gradlew build
     - name: Upload build artifacts
