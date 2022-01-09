@@ -24,7 +24,7 @@ dependencies {
     implementation("com.github.rockswang:java-curl:1.2.2.190107")
     implementation("org.yaml:snakeyaml:1.30")
     implementation("org.bstats:bstats-bukkit:2.2.1")
-    implementation("com.github.DV8FromTheWorld:JDA:v5.0.0-alpha.3")
+    implementation("com.github.DV8FromTheWorld:JDA:4.4.0")
     implementation("net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT")
     implementation("com.zaxxer:HikariCP:5.0.0")
     compileOnly("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
@@ -34,7 +34,7 @@ dependencies {
     compileOnly("com.github.MilkBowl:VaultAPI:1.7.1")
     compileOnly("net.kyori:adventure-platform-bukkit:4.0.1")
     compileOnly("com.comphenix.protocol:ProtocolLib:4.7.0")
-    shadow("com.github.DV8FromTheWorld:JDA:v5.0.0-alpha.3")
+    shadow("com.github.DV8FromTheWorld:JDA:4.4.0")
 }
 
 tasks.named<Copy>("processResources") {
