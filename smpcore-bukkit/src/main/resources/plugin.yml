@@ -22,3 +22,5 @@ commands:
     description: /withdraw <amount>
   report:
     description: report a player.
+  reportinfo:
+    description: get info on a specific report.

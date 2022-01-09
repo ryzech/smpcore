@@ -3,6 +3,7 @@ package net.ryzech.smpcore;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import net.ryzech.smpcore.commands.SmpCoreCommandExecutor;
+import net.ryzech.smpcore.commands.TabComplete;
 import net.ryzech.smpcore.commands.admin.toweradmin;
 import net.ryzech.smpcore.commands.admin.yell;
 import net.ryzech.smpcore.commands.everyone.economy;
@@ -93,7 +94,7 @@ public class SmpCorePlugin extends JavaPlugin implements Listener {
         new MySQL(this);
         try {
             MySQL.connect();
-            if(MySQL.update("CREATE TABLE `smpcore_reports` (  `uuid` CHAR(36) NOT NULL,  `report_id` INT NOT NULL AUTO_INCREMENT primary key,  `report_message` TINYTEXT,  `timestamp` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP );"));
+            if(MySQL.update("CREATE TABLE IF NOT EXISTS `smpcore_reports` (  `uuid` CHAR(36) NOT NULL,  `report_id` INT NOT NULL AUTO_INCREMENT primary key, `reporter` TINYTEXT NOT NULL, `reported` TINYTEXT NOT NULL, `report_message` TINYTEXT,  `timestamp` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP );"));
         } catch (SQLException e) {
             e.printStackTrace();
         }

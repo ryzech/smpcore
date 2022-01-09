@@ -33,7 +33,7 @@ public class MySQL {
         config.setUsername(username);
         config.setPassword(password);
         config.setMaximumPoolSize(fileUtils.getMain().getInt("db.connections"));
-        ds = new HikariDataSource( config );
+        ds = new HikariDataSource(config);
     }
 
     // isConnected
