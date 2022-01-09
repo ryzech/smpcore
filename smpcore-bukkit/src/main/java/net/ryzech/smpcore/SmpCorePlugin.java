@@ -13,6 +13,7 @@ import net.ryzech.smpcore.events.DamageEvent;
 import net.ryzech.smpcore.managers.HologramManager;
 import net.ryzech.smpcore.managers.barManager;
 import net.ryzech.smpcore.util.FileUtils;
+import net.ryzech.smpcore.util.MySQL;
 import net.ryzech.smpcore.util.SmpCoreApi;
 import net.milkbowl.vault.chat.Chat;
 import org.bukkit.*;
@@ -38,6 +39,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffectType;
 
 import java.io.File;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -88,6 +90,13 @@ public class SmpCorePlugin extends JavaPlugin implements Listener {
         PluginDescriptionFile pdf = this.getDescription(); // gets the plugin.yml file
         log = this.getLogger();
         new report(this);
+        new MySQL(this);
+        try {
+            MySQL.connect();
+            if(MySQL.update("CREATE TABLE `smpcore_reports` (  `uuid` CHAR(36) NOT NULL,  `report_id` INT NOT NULL AUTO_INCREMENT primary key,  `report_message` TINYTEXT,  `timestamp` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP );"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         // commandExecutor
         SmpCoreCommandExecutor commandExecutor = new SmpCoreCommandExecutor(this);

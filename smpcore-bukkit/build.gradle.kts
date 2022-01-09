@@ -25,7 +25,11 @@ dependencies {
     implementation("org.yaml:snakeyaml:1.30")
     implementation("org.bstats:bstats-bukkit:2.2.1")
     implementation("com.github.DV8FromTheWorld:JDA:v5.0.0-alpha.3")
+<<<<<<< HEAD
     implementation("net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT")
+=======
+    implementation("com.zaxxer:HikariCP:5.0.0")
+>>>>>>> 24e0f72 (initial mysql setup)
     compileOnly("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
     compileOnly("com.gmail.filoghost.holographicdisplays:holographicdisplays-api:2.4.9")
     compileOnly("me.clip:placeholderapi:2.11.1")

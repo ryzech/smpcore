@@ -8,6 +8,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.ryzech.smpcore.SmpCorePlugin;
 import net.ryzech.smpcore.util.FileUtils;
+import net.ryzech.smpcore.util.MySQL;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -17,6 +18,9 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.security.auth.login.LoginException;
 import java.lang.reflect.Array;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -66,6 +70,15 @@ public class report implements CommandExecutor {
                         true);
                 modLog.sendMessageEmbeds(eb.build()).queue();
                 player.sendMessage(Component.text("You reported " + reported.getName() + " for: " + msgContent, NamedTextColor.DARK_AQUA));
+                try (Connection conn = MySQL.getConnection(); PreparedStatement stmt = conn.prepareStatement(
+                        "INSERT INTO smpcore_reports(uuid, report_message) VALUES(?, ?);")) {
+                    stmt.setString(1, player.getUniqueId().toString());
+                    stmt.setString(2, msgContent);
+                    stmt.execute();
+                    return true;
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
 
         }
