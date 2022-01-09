@@ -30,7 +30,7 @@ dependencies {
     compileOnly("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
     compileOnly("com.gmail.filoghost.holographicdisplays:holographicdisplays-api:2.4.9")
     compileOnly("me.clip:placeholderapi:2.11.1")
-    compileOnly("net.essentialsx:EssentialsX:2.19.0")
+    compileOnly("net.essentialsx:EssentialsX:2.19.2")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7.1")
     compileOnly("net.kyori:adventure-platform-bukkit:4.0.1")
     compileOnly("com.comphenix.protocol:ProtocolLib:4.7.0")
