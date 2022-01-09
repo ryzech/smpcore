@@ -3,7 +3,6 @@ package net.ryzech.smpcore;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import net.ryzech.smpcore.commands.SmpCoreCommandExecutor;
-import net.ryzech.smpcore.commands.TabComplete;
 import net.ryzech.smpcore.commands.admin.toweradmin;
 import net.ryzech.smpcore.commands.admin.yell;
 import net.ryzech.smpcore.commands.everyone.economy;
