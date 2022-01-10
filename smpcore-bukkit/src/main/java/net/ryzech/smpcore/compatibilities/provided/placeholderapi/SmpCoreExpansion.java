@@ -27,7 +27,7 @@ public class SmpCoreExpansion extends PlaceholderExpansion {
     @NotNull
     @Override
     public String getVersion() {
-        return "${projectVersion}";
+        return "${internalVersion}";
     }
 
     @Override
