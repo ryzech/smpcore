@@ -26,7 +26,7 @@ dependencies {
     implementation("org.bstats:bstats-bukkit:2.2.1")
     implementation("com.github.DV8FromTheWorld:JDA:5.0.0-alpha.3")
     implementation("net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT")
-    implementation("com.zaxxer:HikariCP:5.0.0")
+    implementation("com.zaxxer:HikariCP:5.0.1")
     compileOnly("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
     compileOnly("com.gmail.filoghost.holographicdisplays:holographicdisplays-api:2.4.9")
     compileOnly("me.clip:placeholderapi:2.11.1")
