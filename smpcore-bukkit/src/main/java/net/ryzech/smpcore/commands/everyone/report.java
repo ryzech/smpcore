@@ -32,7 +32,6 @@ public class report implements CommandExecutor {
         this.plugin = plugin;
         startBot();
         Objects.requireNonNull(plugin.getCommand("report")).setExecutor(this);
-        Objects.requireNonNull(plugin.getCommand("reportinfo")).setExecutor(this);
     }
 
     private void startBot() {
@@ -88,7 +87,7 @@ public class report implements CommandExecutor {
                                     true);
                             eb.addField("World", player.getWorld().getName(), true);
                             modLog.sendMessageEmbeds(eb.build()).queue();
-                            player.sendMessage(Component.text("You reported " + reported.getName() + " for: " + msgContent, NamedTextColor.DARK_AQUA));
+                            player.sendMessage(MiniMessage.get().deserialize("<dark_aqua>You reported</dark_aqua><gold>" + reported.getName() + "</gold> for <gold>\"" + msgContent + "\"</gold>"));
                             try (Connection conn = MySQL.getConnection(); PreparedStatement stmt = conn.prepareStatement(
                                     "INSERT INTO smpcore_reports(uuid, reporter, reported, report_message) VALUES(?, ?, ?, ?);")) {
                                 stmt.setString(1, player.getUniqueId().toString());
@@ -104,31 +103,6 @@ public class report implements CommandExecutor {
                 } else {
                     sender.sendMessage(MiniMessage.get().deserialize("<red>This player hasn't joined the server before. Check if the name is correct.</red>"));
                 }
-            }
-            if (command.getName().equals("reportinfo")) {
-                if(args.length == 0) {
-                    sender.sendMessage(MiniMessage.get().deserialize("<gold>/reportinfo <report id></gold>"));
-                } else {
-                    Bukkit.getScheduler().runTaskAsynchronously(plugin, new Runnable() {
-                        @Override
-                        public void run() {
-                            try (Connection conn = MySQL.getConnection()) {
-                                Statement stmt = conn.createStatement();
-                                ResultSet rs = stmt.executeQuery("SELECT * FROM smpcore_reports WHERE report_id=" + args[0]);
-                                rs.next();
-                                String reportedPlayer = rs.getString(4);
-                                String reporter = rs.getString(3);
-                                String reportTime = rs.getString(6);
-                                String reportReason = rs.getString(5);
-                                sender.sendMessage(MiniMessage.get().deserialize("<dark_aqua>" + reportedPlayer + " was reported by " + reporter + " at " + reportTime + " for \"" + reportReason + "\"" + "</dark_aqua>"));
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                                sender.sendMessage(MiniMessage.get().deserialize("<red>The specified report id \"" + args[0] + "\" was either not found or the database is disabled. If the error persists contact your servers administator."));
-                            }
-                        }
-                    });
-                }
-                return true;
             }
         }
         return false;
