@@ -24,3 +24,5 @@ commands:
     description: report a player.
   reportinfo:
     description: get info on a specific report.
+  reportsclear:
+    description: clear all reports.
