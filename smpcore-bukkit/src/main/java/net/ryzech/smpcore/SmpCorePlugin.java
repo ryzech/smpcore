@@ -4,10 +4,7 @@ import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import net.ryzech.smpcore.commands.admin.toweradmin;
 import net.ryzech.smpcore.commands.admin.yell;
-import net.ryzech.smpcore.commands.everyone.economy;
-import net.ryzech.smpcore.commands.everyone.report;
-import net.ryzech.smpcore.commands.everyone.reportinfo;
-import net.ryzech.smpcore.commands.everyone.stuck;
+import net.ryzech.smpcore.commands.everyone.*;
 import net.ryzech.smpcore.compatibilities.CompatibilitiesManager;
 import net.ryzech.smpcore.events.DamageEvent;
 import net.ryzech.smpcore.managers.HologramManager;
@@ -104,6 +101,7 @@ public class SmpCorePlugin extends JavaPlugin implements Listener {
         toweradmin towerExecutor = new toweradmin(this);
         economy economyExecutor = new economy(this);
         reportinfo reportinfoExecutor = new reportinfo(this);
+        reportsclear reportclearExecutor = new reportsclear(this);
 
 
         // ProtocolLib

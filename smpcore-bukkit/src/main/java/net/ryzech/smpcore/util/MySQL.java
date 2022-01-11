@@ -34,6 +34,7 @@ public class MySQL {
         config.setPassword(password);
         config.setMaximumPoolSize(fileUtils.getMain().getInt("db.connections"));
         ds = new HikariDataSource(config);
+        Bukkit.getLogger().info("SmpCore > Connected to database!");
     }
 
     // isConnected
