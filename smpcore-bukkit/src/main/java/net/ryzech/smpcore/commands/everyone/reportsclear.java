@@ -31,7 +31,7 @@ public class reportsclear implements CommandExecutor {
                     @Override
                     public void run() {
                         try (Connection conn = MySQL.getConnection()) {
-                            if(MySQL.update("TRUNCATE TABLE smpcore_reports;"));
+                            MySQL.update("TRUNCATE TABLE smpcore_reports;");
                             sender.sendMessage(MiniMessage.get().deserialize("<dark_aqua>Reports successfully cleared!</dark_aqua>"));
                         } catch (SQLException e) {
                             e.printStackTrace();

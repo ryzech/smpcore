@@ -16,6 +16,8 @@ repositories {
     maven("https://libraries.minecraft.net/")
     maven("https://repo.maven.apache.org/maven2/")
     maven("https://repo.essentialsx.net/releases/")
+    maven("https://m2.chew.pro/snapshots/")
+
 }
 
 dependencies {
@@ -27,6 +29,7 @@ dependencies {
     implementation("com.github.DV8FromTheWorld:JDA:5.0.0-alpha.3")
     implementation("net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT")
     implementation("com.zaxxer:HikariCP:5.0.0")
+    implementation("pw.chew:jda-chewtils:2.0-SNAPSHOT")
     compileOnly("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
     compileOnly("com.gmail.filoghost.holographicdisplays:holographicdisplays-api:2.4.9")
     compileOnly("me.clip:placeholderapi:2.11.1")
@@ -35,6 +38,7 @@ dependencies {
     compileOnly("net.kyori:adventure-platform-bukkit:4.0.1")
     compileOnly("com.comphenix.protocol:ProtocolLib:4.7.0")
     shadow("com.github.DV8FromTheWorld:JDA:5.0.0-alpha.3")
+    shadow("pw.chew:jda-chewtils:2.0-SNAPSHOT")
 }
 
 tasks.named<Copy>("processResources") {

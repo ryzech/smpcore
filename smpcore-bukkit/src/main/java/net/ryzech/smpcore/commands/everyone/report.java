@@ -1,13 +1,18 @@
 package net.ryzech.smpcore.commands.everyone;
 
+import com.jagrosh.jdautilities.command.CommandClient;
+import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.TextChannel;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import net.dv8tion.jda.api.interactions.commands.OptionMapping;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.ryzech.smpcore.SmpCorePlugin;
+import net.ryzech.smpcore.commands.reportDiscord;
 import net.ryzech.smpcore.util.FileUtils;
 import net.ryzech.smpcore.util.MySQL;
 import org.bukkit.Bukkit;
@@ -16,6 +21,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import com.jagrosh.jdautilities.command.SlashCommand;
 
 import javax.security.auth.login.LoginException;
 import java.sql.*;
@@ -36,9 +42,17 @@ public class report implements CommandExecutor {
 
     private void startBot() {
         try {
+            CommandClientBuilder client = new CommandClientBuilder();
             FileUtils fileUtils;
             fileUtils = new FileUtils(plugin);
-            jda = JDABuilder.createDefault(fileUtils.getMain().getString("Bot.Token")).build();
+            client.setOwnerId("779910798759297044");
+            client.addSlashCommand(new reportDiscord());
+            client.forceGuildOnly(fileUtils.getMain().getString("Bot.GuildID"));
+            CommandClient commandClient = client.build();
+            jda = JDABuilder.createDefault(fileUtils.getMain().getString("Bot.Token")
+                    ).addEventListeners(
+                    commandClient
+                    ).build();
         } catch (LoginException e) {
             e.printStackTrace();
         }
