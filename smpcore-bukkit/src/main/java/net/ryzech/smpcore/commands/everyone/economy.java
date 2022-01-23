@@ -28,16 +28,17 @@ public class economy implements CommandExecutor {
     public economy(SmpCorePlugin plugin) {
         this.plugin = plugin;
 
-        Objects.requireNonNull(plugin.getCommand("deposit")).setExecutor(this);
-        Objects.requireNonNull(plugin.getCommand("withdraw")).setExecutor(this);
-
+        if(plugin.getServer().getPluginManager().isPluginEnabled("Essentials")) {
+            Objects.requireNonNull(plugin.getCommand("deposit")).setExecutor(this);
+            Objects.requireNonNull(plugin.getCommand("withdraw")).setExecutor(this);
+        }
     }
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage("This command must be run as a player.");
-        } else {
+        } else if (plugin.getServer().getPluginManager().isPluginEnabled("Essentials")) {
             if (command.getName().equalsIgnoreCase("deposit")) {
                 Player player = (Player) sender;
                 UUID uuid = player.getUniqueId();

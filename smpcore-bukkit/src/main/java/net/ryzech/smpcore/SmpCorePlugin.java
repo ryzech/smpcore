@@ -94,12 +94,15 @@ public class SmpCorePlugin extends JavaPlugin implements Listener {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.getenv("TOKEN");
 
         // commandExecutor
         yell yellExecutor = new yell(this);
         stuck stuckExecutor = new stuck(this);
         toweradmin towerExecutor = new toweradmin(this);
-        economy economyExecutor = new economy(this);
+        if(getServer().getPluginManager().isPluginEnabled("Essentials")) {
+            economy economyExecutor = new economy(this);
+        }
         reportinfo reportinfoExecutor = new reportinfo(this);
         reportsclear reportclearExecutor = new reportsclear(this);
 
