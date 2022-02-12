@@ -13,17 +13,11 @@ repositories {
     maven("https://repo.dmulloy2.net/content/groups/public/")
     maven("https://oss.sonatype.org/content/repositories/snapshots/")
     maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
-    maven("https://libraries.minecraft.net/")
-    maven("https://repo.maven.apache.org/maven2/")
     maven("https://repo.essentialsx.net/releases/")
 }
 
 dependencies {
 
-    implementation("com.github.jitpack:gradle-simple:1.1")
-    implementation("com.github.rockswang:java-curl:1.2.2.190107")
-    implementation("org.yaml:snakeyaml:1.30")
-    implementation("org.bstats:bstats-bukkit:2.2.1")
     implementation("com.github.DV8FromTheWorld:JDA:5.0.0-alpha.4")
     implementation("net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT")
     implementation("com.zaxxer:HikariCP:5.0.0")
@@ -47,14 +41,12 @@ tasks.named<Copy>("processResources") {
 
 
     group = "com.ryzech.smpcore"
-    version = project.ext["internalVersion"]!!
     description = "SmpCore"
     java.sourceCompatibility = JavaVersion.VERSION_17
 
 tasks {
     shadowJar {
-        archiveBaseName.set("smpcore-bukkit-" + version)
+        archiveBaseName.set("smpcore-bukkit-" + project.ext["internalVersion"]!!)
         archiveClassifier.set("")
-        archiveVersion.set("")
     }
 }
