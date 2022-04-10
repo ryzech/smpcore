@@ -104,7 +104,6 @@ public class SmpCorePlugin extends JavaPlugin implements Listener {
             economy economyExecutor = new economy(this);
         }
         reportinfo reportinfoExecutor = new reportinfo(this);
-        reportsclear reportclearExecutor = new reportsclear(this);
 
 
         // ProtocolLib
@@ -263,7 +262,7 @@ public class SmpCorePlugin extends JavaPlugin implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPrepareCraft(PrepareItemCraftEvent event) {
         for (ItemStack i : event.getInventory().getMatrix()) {
-            if (i != null && i.hasItemMeta() && i.getItemMeta().getLore().contains(LORE_NO_CRAFT)) {
+            if (i != null && i.getItemMeta().hasLore() && i.getItemMeta().lore().contains(LORE_NO_CRAFT)) {
                 event.getInventory().setResult(new ItemStack(Material.AIR));
             }
         }
@@ -306,8 +305,8 @@ public class SmpCorePlugin extends JavaPlugin implements Listener {
             double boundingY = target.getBoundingBox().getHeight();
             double boundingZ = target.getBoundingBox().getWidthZ();
             double headshotCheckY = (damagedY + boundingY) - arrowY;
-
-            //TODO: Different critical hit targets per mob type
+            double headshotCheckX = (damagedX + boundingX) - arrowX;
+            double headshotCheckZ = (damagedX + boundingZ) - arrowX;
             boolean critical = false;
             if (target instanceof Ravager) {
 
@@ -325,16 +324,6 @@ public class SmpCorePlugin extends JavaPlugin implements Listener {
                         arrow.getLocation(), critical);
                 Bukkit.getServer().getPluginManager().callEvent(damageEvent);
             }
-
-//            plugin.getServer().broadcastMessage("> headshotCheckY " + headshotCheckY);
-//            plugin.getServer().broadcastMessage("> aX " + arrowX);
-//            plugin.getServer().broadcastMessage("> aY " + arrowY);
-//            plugin.getServer().broadcastMessage("> dX " + damagedX);
-//            plugin.getServer().broadcastMessage("> dY " + damagedY);
-//            plugin.getServer().broadcastMessage("> bX " + boundingX);
-//            plugin.getServer().broadcastMessage("> bY " + boundingY);
-//            plugin.getServer().broadcastMessage("> bZ " + boundingZ);
-//            plugin.getServer().broadcastMessage("> damage " + event.getDamage());
         } else if (event.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
             Entity target = event.getEntity();
             Entity damager = event.getDamager();

@@ -15,6 +15,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.geysermc.floodgate.api.FloodgateApi;
 import org.jetbrains.annotations.NotNull;
 
 import javax.security.auth.login.LoginException;
@@ -27,12 +28,15 @@ public class report implements CommandExecutor {
     public SmpCorePlugin plugin;
     public JDA jda;
     public FileUtils fileUtils;
+    FloodgateApi fg = FloodgateApi.getInstance();
+    MiniMessage mm = MiniMessage.miniMessage();
 
     public report(SmpCorePlugin plugin) {
         this.plugin = plugin;
         startBot();
         Objects.requireNonNull(plugin.getCommand("report")).setExecutor(this);
     }
+
 
     private void startBot() {
         try {
@@ -50,7 +54,7 @@ public class report implements CommandExecutor {
             sender.sendMessage("This command must be run as a player.");
         } else {
             if(args.length == 0) {
-                sender.sendMessage(MiniMessage.get().deserialize("<gold>/report <user> <reason></gold>"));
+                sender.sendMessage(mm.deserialize("<gold>/report <user> <reason></gold>"));
             } else if (command.getName().equalsIgnoreCase("report")) {
                 FileUtils fileUtils;
                 fileUtils = new FileUtils(plugin);
@@ -87,7 +91,7 @@ public class report implements CommandExecutor {
                                     true);
                             eb.addField("World", player.getWorld().getName(), true);
                             modLog.sendMessageEmbeds(eb.build()).queue();
-                            player.sendMessage(MiniMessage.get().deserialize("<dark_aqua>You reported</dark_aqua><gold>" + reported.getName() + "</gold> for <gold>\"" + msgContent + "\"</gold>"));
+                            player.sendMessage(mm.deserialize("<dark_aqua>You reported</dark_aqua><gold>" + reported.getName() + "</gold> for <gold>\"" + msgContent + "\"</gold>"));
                             try (Connection conn = MySQL.getConnection(); PreparedStatement stmt = conn.prepareStatement(
                                     "INSERT INTO smpcore_reports(uuid, reporter, reported, report_message) VALUES(?, ?, ?, ?);")) {
                                 stmt.setString(1, player.getUniqueId().toString());
@@ -101,7 +105,7 @@ public class report implements CommandExecutor {
                         }
                     });
                 } else {
-                    sender.sendMessage(MiniMessage.get().deserialize("<red>This player hasn't joined the server before. Check if the name is correct.</red>"));
+                    sender.sendMessage(mm.deserialize("<red>This player hasn't joined the server before. Check if the name is correct.</red>"));
                 }
             }
         }

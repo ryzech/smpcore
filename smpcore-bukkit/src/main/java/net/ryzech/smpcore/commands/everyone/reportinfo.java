@@ -19,6 +19,7 @@ import java.util.Objects;
 public class reportinfo implements CommandExecutor {
 
     public SmpCorePlugin plugin;
+    MiniMessage mm = MiniMessage.miniMessage();
 
     public reportinfo(SmpCorePlugin plugin) {
         this.plugin = plugin;
@@ -32,7 +33,7 @@ public class reportinfo implements CommandExecutor {
         } else {
             if (command.getName().equalsIgnoreCase("reportinfo")) {
                 if(args.length == 0) {
-                    sender.sendMessage(MiniMessage.get().deserialize("<gold>/reportinfo <report id></gold>"));
+                    sender.sendMessage(mm.deserialize("<gold>/reportinfo <report id></gold>"));
                 } else {
                     Bukkit.getScheduler().runTaskAsynchronously(plugin, new Runnable() {
                         @Override
@@ -45,10 +46,10 @@ public class reportinfo implements CommandExecutor {
                                 String reporter = rs.getString(3);
                                 String reportTime = rs.getString(6);
                                 String reportReason = rs.getString(5);
-                                sender.sendMessage(MiniMessage.get().deserialize("<gold>" + reportedPlayer + "</gold><dark_aqua> was reported by</dark_aqua> <gold>" + reporter + "</gold><dark_aqua> at </dark_aqua><gold>" + reportTime + "</gold><dark_aqua> for</dark_aqua><gold> \"" + reportReason + "\"" + "</gold>"));
+                                sender.sendMessage(mm.deserialize("<gold>" + reportedPlayer + "</gold><dark_aqua> was reported by</dark_aqua> <gold>" + reporter + "</gold><dark_aqua> at </dark_aqua><gold>" + reportTime + "</gold><dark_aqua> for</dark_aqua><gold> \"" + reportReason + "\"" + "</gold>"));
                             } catch (SQLException e) {
                                 e.printStackTrace();
-                                sender.sendMessage(MiniMessage.get().deserialize("<red>The specified report id \"" + args[0] + "\" was either not found or the database is disabled. If the error persists contact your servers administrator."));
+                                sender.sendMessage(mm.deserialize("<red>The specified report id \"" + args[0] + "\" was either not found or the database is disabled. If the error persists contact your servers administrator."));
                             }
                         }
                     });
