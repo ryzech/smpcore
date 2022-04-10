@@ -17,6 +17,7 @@ import java.util.Objects;
 public class toweradmin implements CommandExecutor {
 
     private final SmpCorePlugin plugin;
+    MiniMessage mm = MiniMessage.miniMessage();
 
     public toweradmin(SmpCorePlugin plugin) {
         this.plugin = plugin;
@@ -58,7 +59,7 @@ public class toweradmin implements CommandExecutor {
                         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a[&3SMPCORE&a] &aSuccesfully reloaded the config!"));
                         Bukkit.getLogger().info(ChatColor.translateAlternateColorCodes('&', "&a[&3SMPCORE&a] &aSuccesfully reloaded the config!"));
                     } else {
-                        sender.sendMessage(MiniMessage.get().deserialize("<red>Sorry but you don't have permission to run this command.</red>"));
+                        sender.sendMessage(mm.deserialize("<red>Sorry but you don't have permission to run this command.</red>"));
                     }
                 }
             }
