@@ -47,19 +47,7 @@ public class SmpCorePlugin extends JavaPlugin implements Listener {
     public static Logger log;
 
     public static final String LORE_NO_CRAFT = ChatColor.DARK_RED + "Not Craftable";
-
-    private static ItemStack twitchStick;
-    private static ItemStack twitchSlab;
-    private static ItemStack twitchLog;
-    private static ItemStack twitchCoal;
-    private static ItemStack twitchCoalBlock;
-    private static ItemStack twitchDiamond;
-    private static ItemStack twitchDiamondBlock;
-    private static ItemStack twitchUltimateItem;
-    private static ItemStack tear;
     private static SmpCorePlugin smpcore;
-    private YamlConfiguration customConfig;
-
     public Chat chat;
 
     public SmpCorePlugin() throws Exception {
@@ -69,8 +57,6 @@ public class SmpCorePlugin extends JavaPlugin implements Listener {
     public static SmpCorePlugin get() {
         return smpcore;
     }
-
-
     private ProtocolManager packetManager;
     private HologramManager hologramManager;
     private barManager barManager;
@@ -81,8 +67,6 @@ public class SmpCorePlugin extends JavaPlugin implements Listener {
     private Boolean DamageIndicatorsEnabled;
 
     public void onEnable() {
-        File configFile = new File(getDataFolder(), "config.yml");
-        customConfig = YamlConfiguration.loadConfiguration(configFile);
         instance = this;
         PluginDescriptionFile pdf = this.getDescription(); // gets the plugin.yml file
         log = this.getLogger();
@@ -141,36 +125,6 @@ public class SmpCorePlugin extends JavaPlugin implements Listener {
         // HubManager
         stuckCommand.enable((YamlConfiguration) fileUtils.getMain());
 
-        // Lore Items
-        twitchStick = new ItemStack(Material.STICK);
-        ItemMeta im = twitchStick.getItemMeta();
-        assert im != null;
-        im.setDisplayName("§l§5Twitch Stick");
-        List<String> lore = new ArrayList<>();
-        lore.add("§6A Rare Item Only Found in this SMP");
-        lore.add("§6No One Knows it's Purpose");
-        lore.add("§6But it's Only Obtaineable At");
-        lore.add("§l§5Twitch.tv/Legundo");
-        im.setLore(lore);
-        im.addEnchant(Enchantment.LUCK, 1, false);
-        im.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        twitchStick.setItemMeta(im);
-
-        tear = new ItemStack(Material.GHAST_TEAR);
-        ItemMeta im2 = twitchStick.getItemMeta();
-        im2.setDisplayName("§l§3Tears of R");
-        List<String> lore2 = new ArrayList<>();
-        lore2.add("§6A Rare Item Only Found in this SMP");
-        lore2.add("§6A Real Tear");
-        lore2.add(LORE_NO_CRAFT);
-        im2.setLore(lore2);
-        im2.addEnchant(Enchantment.LUCK, 1, false);
-        im2.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        tear.setItemMeta(im2);
-
-        // Register crafting recipes
-        getServer().addRecipe(getRecipe());
-
         // Plugin enabled log message
         assert ENABLETOPBAR != null;
         log.info(ChatColor.DARK_AQUA + "Enabling SmpCore...");
@@ -202,16 +156,6 @@ public class SmpCorePlugin extends JavaPlugin implements Listener {
         return hologramManager;
     }
 
-    // Get TwitchStick
-    public static ItemStack getTwitchStick() {
-        return twitchStick;
-    }
-
-    //Get Tear
-    public static ItemStack getTear() {
-        return tear;
-    }
-
     // Welcome message!
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerJoin(PlayerJoinEvent event) {
@@ -231,31 +175,6 @@ public class SmpCorePlugin extends JavaPlugin implements Listener {
         }
 
         barManager.addPlayer(player);
-    }
-
-    // Twitch ladder recipe
-    public ShapedRecipe getRecipe() {
-        ItemStack item2 = new ItemStack(Material.LADDER);
-        ItemMeta meta2 = item2.getItemMeta();
-        assert meta2 != null;
-        meta2.setDisplayName("§l§5Twitch Ladder");
-        List<String> lore2 = new ArrayList<>();
-        lore2.add("§6Secret Item Crafted From 7 Twitch Sticks");
-        lore2.add("§5Unknown Properties");
-        meta2.setLore(lore2);
-        meta2.addEnchant(Enchantment.LUCK, 1, false);
-        meta2.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        item2.setItemMeta(meta2);
-
-        NamespacedKey key = new NamespacedKey( this, "Ladder");
-
-        ShapedRecipe recipe = new ShapedRecipe(key, item2);
-
-        recipe.shape("T T", "TTT", "T T");
-
-        recipe.setIngredient('T', (new RecipeChoice.ExactChoice(twitchStick)));
-
-        return recipe;
     }
 
     // Disable crafting for LORE_NO_CRAFT meta
