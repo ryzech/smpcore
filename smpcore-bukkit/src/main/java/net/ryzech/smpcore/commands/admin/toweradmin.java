@@ -22,45 +22,22 @@ public class toweradmin implements CommandExecutor {
     public toweradmin(SmpCorePlugin plugin) {
         this.plugin = plugin;
 
-        Objects.requireNonNull(plugin.getCommand("tower")).setExecutor((CommandExecutor) this);
+        Objects.requireNonNull(plugin.getCommand("tower")).setExecutor(this);
     }
 
-    public boolean onCommand(CommandSender sender, Command cmd, @NotNull String cmdLabel, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, Command cmd, @NotNull String cmdLabel, String[] args) {
         if (cmd.getName().equalsIgnoreCase("tower")) {
-            // ----- ADMIN -----
-
-            if ("twitchstick".equals(args[0]) && args.length >= 1) {
-                if (!(sender instanceof Player)) {
-                    sender.sendMessage("This command must be run as a player.");
-                } else {
-                    Player p = Bukkit.getPlayer(args[1]);
-                    assert p != null;
-                    SmpCoreApi.giveItem(p, SmpCorePlugin.getTwitchStick());
-                }
-            }
-
-            if ("tear".equals(args[0]) && args.length >= 1) {
-                if (!(sender instanceof Player)) {
-                    sender.sendMessage("This command must be run as a player.");
-                } else {
-                    Player p = Bukkit.getPlayer(args[1]);
-                    assert p != null;
-                    SmpCoreApi.giveItem(p, SmpCorePlugin.getTear());
-                }
-            }
 
             if (args.length >= 1) {
-                if ("reload".equals(args[0]) && args.length >= 1) {
+                if ("reload".equals(args[0]) && sender.hasPermission("smpcore.admin.reload")) {
                     FileUtils fileUtils;
                     fileUtils = new FileUtils(plugin);
-                    if (sender.hasPermission("smpcore.admin")) {
-                        fileUtils.reloadMain();
-                        fileUtils.reloadLang();
-                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a[&3SMPCORE&a] &aSuccesfully reloaded the config!"));
-                        Bukkit.getLogger().info(ChatColor.translateAlternateColorCodes('&', "&a[&3SMPCORE&a] &aSuccesfully reloaded the config!"));
-                    } else {
-                        sender.sendMessage(mm.deserialize("<red>Sorry but you don't have permission to run this command.</red>"));
-                    }
+                    fileUtils.reloadMain();
+                    fileUtils.reloadLang();
+                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&3[&3SMPCORE&3] &3Succesfully reloaded the config!"));
+                    Bukkit.getLogger().info(ChatColor.translateAlternateColorCodes('&', "&3[&3SMPCORE&3] &3Succesfully reloaded the config!"));
+                } else {
+                    sender.sendMessage(mm.deserialize("<red>Sorry but you don't have permission to run this command.</red>"));
                 }
             }
         }

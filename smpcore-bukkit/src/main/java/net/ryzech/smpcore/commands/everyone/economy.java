@@ -47,19 +47,17 @@ public class economy implements CommandExecutor {
                 if (command.getName().equalsIgnoreCase("deposit")) {
                     Player player = (Player) sender;
                     UUID uuid = player.getUniqueId();
-                    Integer diamonds;
+                    int diamonds;
                     if (args.length == 0) {
                         diamonds = SmpCoreApi.getAmount(player, Material.DIAMOND);
                     } else {
-                        diamonds = Integer.valueOf(args[0]);
+                        diamonds = Integer.parseInt(args[0]);
                     }
                     try {
                         if(diamonds == 0) {
                             player.sendMessage(Component.text("Sorry, but you don't have enough diamonds in your inventory to deposit.", NamedTextColor.RED));
                         } else if (diamonds < 0) {
                             player.sendMessage(Component.text("Sorry, but you can't deposit a negative amount.", NamedTextColor.RED));
-                        } else if (player.getInventory().firstEmpty() == -1) {
-                            player.sendMessage(Component.text("Sorry, but you don't have enough space in your inventory to deposit.", NamedTextColor.RED));
                         } else if (player.getInventory().containsAtLeast(new ItemStack(Material.DIAMOND), diamonds)) {
                             Economy.add(uuid, BigDecimal.valueOf(diamonds));
                             player.getInventory().removeItem(new ItemStack(Material.DIAMOND, diamonds));
@@ -72,11 +70,7 @@ public class economy implements CommandExecutor {
                             player.sendMessage(Component.text("Sorry, but you don't have enough diamonds in your inventory to deposit.", NamedTextColor.RED));
                         }
 
-                    } catch (UserDoesNotExistException e) {
-                        e.printStackTrace();
-                    } catch (NoLoanPermittedException e) {
-                        e.printStackTrace();
-                    } catch (MaxMoneyException e) {
+                    } catch (UserDoesNotExistException | NoLoanPermittedException | MaxMoneyException e) {
                         e.printStackTrace();
                     }
 
@@ -87,13 +81,15 @@ public class economy implements CommandExecutor {
 
                     try {
                         BigDecimal balance = Economy.getMoneyExact(uuid);
-                        Integer actualBalance = balance.intValueExact();
+                        int actualBalance = balance.intValueExact();
                         if(args.length == 0) {
                             player.sendMessage(Component.text("Please select an amount, /withdraw <amount>.", NamedTextColor.GOLD));
                         } else if (Integer.parseInt(args[0]) < 0) {
                             player.sendMessage(Component.text("Sorry, but you can't withdraw a negative amount.", NamedTextColor.RED));
                         } else if (Integer.parseInt(args[0]) > actualBalance) {
                             player.sendMessage(Component.text("Sorry, but you don't have enough diamonds in your account to withdraw.", NamedTextColor.RED));
+                        } else if (player.getInventory().firstEmpty() == -1) {
+                            player.sendMessage(Component.text("Sorry, but you don't have enough space in your inventory to deposit.", NamedTextColor.RED));
                         } else {
                             Economy.subtract(uuid, BigDecimal.valueOf(Long.parseLong(args[0])));
                             SmpCoreApi.giveItemMaterial(player, Material.DIAMOND, Integer.parseInt(args[0]));
@@ -103,11 +99,7 @@ public class economy implements CommandExecutor {
                                             .append(Component.text(" from your account."))));
                         }
 
-                    } catch (NoLoanPermittedException e) {
-                        e.printStackTrace();
-                    } catch (UserDoesNotExistException e) {
-                        e.printStackTrace();
-                    } catch (MaxMoneyException e) {
+                    } catch (NoLoanPermittedException | MaxMoneyException | UserDoesNotExistException e) {
                         e.printStackTrace();
                     }
                 }
